@@ -44,6 +44,7 @@ body {
   line-height: 1.5;
   color: #333;
   background-color: #f4f4f4;
+  background-image: url('images/library.jpg');
   margin: 0;
   padding: 0;
 }
@@ -60,9 +61,9 @@ body {
     margin-right: 20px;
 }
 
-.header h1 {
+.header--title {
     margin-right: auto;
-    font-size: 4em;
+    font-size: 3em;
     color: var(--white);
     font-family: "Old London", var(--system-ui)
 }
@@ -77,4 +78,65 @@ body {
     border: none;
     color: var(--white);
     cursor: pointer;
+}
+
+main {
+    min-height: 100vh;
+}
+
+.book--container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    flex-direction: row;
+    margin: 3em auto;
+    padding-top: 1em;
+    width: clamp(700px, 75%, 1400px);
+    height: fit-content;
+    background-color: rgba(36, 36, 36, 0.8);
+    border-radius: 10px;
+    
+}
+
+.book {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--container-bg-color);
+    width: 30%;
+    height: fit-content;
+    padding: 1em;
+    border-radius: 10px;
+    margin-bottom: 1em;
+    gap: 0.6em;
+}
+
+.book div h2 {
+    margin-bottom: 0;
+}
+
+.underline {
+    border: 1px solid var(--light-grey);
+}
+
+.book--btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.book--btn button{
+    padding: 15px 18px;
+    border-radius: 50px;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn--read {
+    background-color: var(--green);
+}
+
+.btn--remove {
+    background-color: var(--red);
 }
