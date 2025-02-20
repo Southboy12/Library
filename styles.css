@@ -80,6 +80,21 @@ body {
     cursor: pointer;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal--btn {
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+}
+
 main {
     min-height: 100vh;
 }
