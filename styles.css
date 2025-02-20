@@ -1,0 +1,80 @@
+@font-face {
+    font-family: 'Old London';
+    src: url('fonts/OldLondon.woff2') format('woff2'),
+        url('fonts/OldLondon.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Abbasy Calligraphy Typeface';
+    src: url('fonts/AbbasyCalligraphyTypeface.woff2') format('woff2'),
+        url('fonts/AbbasyCalligraphyTypeface.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+
+/* Custom Properties */
+:root {
+    --system-ui: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --background-color: #531818;
+    --white: #f8f8f8;
+    --blue: #279af8;
+    --green: #69b64b;
+    --red: #dc4242;
+    --black: #151515;
+    --light-grey: #747474;
+    --container-bg-color: #e0e0e0;
+    }
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+    display: flex;
+    background-color: var(--background-color);
+    align-items: center;
+    padding: 2em 4em;
+}
+
+.header--img {
+    width: 5em;
+    margin-right: 20px;
+}
+
+.header h1 {
+    margin-right: auto;
+    font-size: 4em;
+    color: var(--white);
+    font-family: "Old London", var(--system-ui)
+}
+
+.header--btn {
+    height: 4em;
+    width:8em;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 50px;
+    background-color: var(--blue);
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+}
