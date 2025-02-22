@@ -102,7 +102,7 @@ main {
 .book--container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-content: center;
     flex-direction: row;
     margin: 3em auto;
@@ -126,6 +126,13 @@ main {
     gap: 0.6em;
 }
 
+.book--title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
 .book div h2 {
     margin-bottom: 0;
 }
@@ -140,16 +147,21 @@ main {
 }
 
 .book--btn button{
-    padding: 15px 18px;
-    border-radius: 50px;
-    border: none;
+    width: 6.25em;
+    height: 2.5em;
+    border-radius: 30px;
+    border-style: none;
+    padding: 5px;
     color: var(--white);
-    cursor: pointer;
     font-weight: bold;
 }
 
-.btn--read {
+.read {
     background-color: var(--green);
+}
+
+.notread {
+    background-color: var(--blue);
 }
 
 .btn--remove {
