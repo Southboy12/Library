@@ -1,46 +1,42 @@
-const add = document.querySelector("#modal--add");
-const bookEl = document.querySelector("#book--container");
-const statusBtn = document.querySelectorAll(".btn--status");
-
-
-// Book constructor
 class Book {
-  
   constructor(title, author, genre, publishedIn, checked) {
-  this.title = title;
-  this.author = author;
-  this.genre = genre;
-  this.publishedIn = publishedIn;
-  this.checked = checked;
-}
-}
-//Default books in the library
-const library = [
-  new Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", "1937", true),
-  new Book("1984", "George Orwell", "Dystopian", "1949", false),
-  new Book("To Kill a Mockingbird", "Harper Lee", "Historical Fiction", "1960", true),
-  new Book("Dune", "Frank Herbert", "Science Fiction", "1965", false)
-];
-
-// create new book
-function createBook(e) {
-  e.preventDefault();
-  const title = document.querySelector("#title").value.trim();
-  const author = document.querySelector("#author").value.trim();
-  const genre = document.querySelector("#genre").value;
-  const publishedIn = document.querySelector("#publish").value;
-  const checked = document.querySelector("#checkbox").checked;
-  const book = new Book(title, author, genre, publishedIn, checked);
-
-  return book;
+    this.title = title;
+    this.author = author;
+    this.genre = genre;
+    this.publishedIn = publishedIn;
+    this.checked = checked;
+  }
 }
 
-function getBookHtml() {
-  let bookHtml = ``;
+class Library {
+  constructor() {
+    this.library = [
+      new Book("The Hobbit", "J.R.R. Tolkien", "Fantasy", "1937", true),
+      new Book("1984", "George Orwell", "Dystopian", "1949", false),
+      new Book("To Kill a Mockingbird", "Harper Lee", "Historical Fiction", "1960", true),
+      new Book("Dune", "Frank Herbert", "Science Fiction", "1965", false)
+    ];
+    this.bookEl = document.querySelector("#book--container");
+    this.addBtn = document.querySelector("#modal--add");
+    this.addBtn.addEventListener("click", (e) => this.addBookToLibrary(e));
+    document.addEventListener("click", (e) => this.handleButtonClick(e));
+    this.renderBooks();
+  }
 
-  library.forEach((book, index) => {
-    const readStatus = book.checked ? "Read" : "Notread";
-    bookHtml += `
+  createBook(e) {
+    e.preventDefault();
+    const title = document.querySelector("#title").value.trim();
+    const author = document.querySelector("#author").value.trim();
+    const genre = document.querySelector("#genre").value;
+    const publishedIn = document.querySelector("#publish").value;
+    const checked = document.querySelector("#checkbox").checked;
+    return new Book(title, author, genre, publishedIn, checked);
+  }
+
+  getBookHtml() {
+    return this.library.map((book, index) => {
+      const readStatus = book.checked ? "Read" : "Notread";
+      return `
         <div class="book">
             <div>
                 <h2 class="book--title">${book.title}</h2>
@@ -50,49 +46,45 @@ function getBookHtml() {
             <p>${book.genre}</p>
             <p>The book was published in ${book.publishedIn}</p>
             <div class="book--btn">
-                <button  class="btn--status ${readStatus.toLowerCase()}" data-index="${index}">${readStatus}</button>
+                <button class="btn--status ${readStatus.toLowerCase()}" data-index="${index}">${readStatus}</button>
                 <button class="btn--remove" data-index="${index}">Remove</button>
             </div>
-        </div>
-        `;
-  });
-  return bookHtml;
-}
-
-function renderBooks() {
-  bookEl.innerHTML = getBookHtml();
-}
-
-function clearForm() {
-  document.querySelector("#title").value = "";
-  document.querySelector("#author").value = "";
-  document.querySelector("#genre").value = "Fantasy";
-  document.querySelector("#publish").value = "";
-  document.querySelector("#checkbox").checked = false;
-}
-
-function addBookToLibrary(e) {
-  const book = createBook(e);
-  if (!book) return;
-  library.push(book);
-  renderBooks();
-  clearForm();
-}
-
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("btn--status")) {
-    const index = e.target.dataset.index;
-    library[index].checked = !library[index].checked;
-    renderBooks();
+        </div>`;
+    }).join('');
   }
 
-  if (e.target.classList.contains("btn--remove")) {
-    const index = e.target.dataset.index;
-    library.splice(index, 1);
-    renderBooks();
+  renderBooks() {
+    this.bookEl.innerHTML = this.getBookHtml();
   }
-});
 
-add.addEventListener("click", addBookToLibrary);
+  clearForm() {
+    document.querySelector("#title").value = "";
+    document.querySelector("#author").value = "";
+    document.querySelector("#genre").value = "Fantasy";
+    document.querySelector("#publish").value = "";
+    document.querySelector("#checkbox").checked = false;
+  }
 
-renderBooks()
+  addBookToLibrary(e) {
+    const book = this.createBook(e);
+    if (!book) return;
+    this.library.push(book);
+    this.renderBooks();
+    this.clearForm();
+  }
+
+  handleButtonClick(e) {
+    const index = e.target.dataset.index;
+    if (e.target.classList.contains("btn--status")) {
+      this.library[index].checked = !this.library[index].checked;
+      this.renderBooks();
+    }
+    if (e.target.classList.contains("btn--remove")) {
+      this.library.splice(index, 1);
+      this.renderBooks();
+    }
+  }
+}
+
+// Initialize the Library
+new Library();
