@@ -36,25 +36,59 @@ class Library {
   getBookHtml() {
     return this.library.map((book, index) => {
       const readStatus = book.checked ? "Read" : "Notread";
-      return `
-        <div class="book">
-            <div>
-                <h2 class="book--title">${book.title}</h2>
-                <div class="underline"></div>
-            </div>
-            <p>by ${book.author}</p>
-            <p>${book.genre}</p>
-            <p>The book was published in ${book.publishedIn}</p>
-            <div class="book--btn">
-                <button class="btn--status ${readStatus.toLowerCase()}" data-index="${index}">${readStatus}</button>
-                <button class="btn--remove" data-index="${index}">Remove</button>
-            </div>
-        </div>`;
-    }).join('');
+
+      const bookDiv = document.createElement('div');
+      bookDiv.classList.add('book');
+
+      const titleDiv = document.createElement('div');
+      const title = document.createElement('h2');
+      title.classList.add('book--title');
+      title.textContent = book.title;
+      const underline = document.createElement('div');
+      underline.classList.add('underline');
+      titleDiv.appendChild(title);
+      titleDiv.appendChild(underline);
+
+      const author = document.createElement('p');
+      author.textContent = `by ${book.author}`;
+
+      const genre = document.createElement('p');
+      genre.textContent = book.genre;
+
+      const publishedIn = document.createElement('p');
+      publishedIn.textContent = `The book was published in ${book.publishedIn}`;
+
+      const bookBtn = document.createElement('div');
+      bookBtn.classList.add('book--btn');
+      
+      const btnStatus = document.createElement('button');
+      btnStatus.classList.add('btn--status', readStatus.toLowerCase());
+      btnStatus.dataset.index = index;
+      btnStatus.textContent = readStatus;
+
+      const btnRemove = document.createElement('button');
+      btnRemove.classList.add('btn--remove');
+      btnRemove.dataset.index = index;
+      btnRemove.textContent = 'Remove';
+
+      bookBtn.appendChild(btnStatus);
+      bookBtn.appendChild(btnRemove);
+
+      bookDiv.appendChild(titleDiv);
+      bookDiv.appendChild(author);
+      bookDiv.appendChild(genre);
+      bookDiv.appendChild(publishedIn);
+      bookDiv.appendChild(bookBtn);
+
+      return bookDiv;
+
+    });
   }
 
   renderBooks() {
-    this.bookEl.innerHTML = this.getBookHtml();
+    this.bookEl.innerHTML = "";
+    this.getBookHtml().forEach((book) => this.bookEl.appendChild
+    (book));
   }
 
   clearForm() {
